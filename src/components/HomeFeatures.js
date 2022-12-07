@@ -6,7 +6,7 @@ import iconMoney from "../assets/iconMoney.png";
 const HomeFeatures = () => {
   return (
     <div className="features">
-      * <h2 className="sr-only">Features</h2>
+      <h2 className="sr-only">Features</h2>
       <div className="feature-item">
         <img src={iconChat} alt="Chat Icon" className="feature-icon" />
         <h3 className="feature-item-title">You are our #1 priority</h3>

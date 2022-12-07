@@ -1,9 +1,10 @@
 import React from "react";
+import WelcomeUser from "../components/WelcomeUser";
 
 const User = () => {
   return (
     <div>
-      <h1>Hello there</h1>
+      <WelcomeUser />
     </div>
   );
 };
