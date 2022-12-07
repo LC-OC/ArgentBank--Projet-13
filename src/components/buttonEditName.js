@@ -1,7 +1,11 @@
 import React from "react";
 
-const buttonEditName = () => {
-  return <div></div>;
+const ButtonEditName = () => {
+  return (
+    <div>
+      <button className="edit-button">Edit Name</button>
+    </div>
+  );
 };
 
-export default buttonEditName;
+export default ButtonEditName;

@@ -1,26 +1,18 @@
-import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { userProfile } from "../redux/services/auth.slice";
+import React from "react";
+import { useSelector } from "react-redux";
+import ButtonEditName from "./ButtonEditName";
 
 const WelcomeUser = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
-  const { firstName, lastName, isError } = useSelector((state) => state.auth);
-  useEffect(() => {
-    if (isError) {
-      console.log("oh no :(");
-    } else {
-      dispatch(userProfile());
-      console.log("oh yeah ;)");
-    }
-  }, [isError, dispatch, navigate]);
+  const { firstName, lastName } = useSelector((state) => state.auth);
   return (
-    <div>
+    <div className="header">
       <h1>
-        Welcome back, {firstName} {lastName}
+        Welcome back
+        <span>
+          {firstName} {lastName}
+        </span>
       </h1>
+      <ButtonEditName />
     </div>
   );
 };

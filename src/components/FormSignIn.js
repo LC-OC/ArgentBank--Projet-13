@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
-import { loginUser } from "../redux/services/auth.slice";
+import { loginUser, userProfile } from "../redux/services/auth.slice";
 
 export default function SignIn() {
   const navigate = useNavigate();
@@ -19,7 +19,6 @@ export default function SignIn() {
     if (isError) {
       console.log(":(");
     } else if (isSuccess) {
-      localStorage.removeItem("rememberMe");
       console.log(":)");
       navigate("/profile");
     }
@@ -38,7 +37,12 @@ export default function SignIn() {
       email,
       password,
     };
-    dispatch(loginUser(userData));
+    if (!userData.email || !userData.password) {
+      console.log("mauvais identifiant");
+    } else {
+      dispatch(loginUser(userData));
+      dispatch(userProfile(userData));
+    }
   };
 
   return (
@@ -54,7 +58,6 @@ export default function SignIn() {
               name="email"
               value={email}
               className="username"
-              placeholder="email"
               onChange={handleOnChangeBis}
             />
           </div>
