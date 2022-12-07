@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import authService from "./auth.service";
 
-const userToken = JSON.parse(localStorage.getItem("token"));
-const initialState = {
+export const userToken = JSON.parse(localStorage.getItem("token"));
+export const initialState = {
   userToken: userToken ? userToken : null,
   email: "",
   password: "",
@@ -22,19 +22,6 @@ export const loginUser = createAsyncThunk(
   }
 );
 
-export const userProfile = createAsyncThunk(
-  "auth/profile",
-  async (rejectWithValue) => {
-    try {
-      return await (
-        await authService.getUserProfile()
-      ).data.body;
-    } catch (err) {
-      return rejectWithValue([], err);
-    }
-  }
-);
-
 export const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -50,21 +37,6 @@ export const authSlice = createSlice({
     },
     [loginUser.rejected]: (state) => {
       state.userToken = null;
-      state.isLoading = false;
-      state.isSuccess = false;
-      state.isError = true;
-    },
-    [userProfile.fulfilled]: (state, action) => {
-      state.isLoading = false;
-      state.isSuccess = true;
-      state.email = action.payload.email;
-      state.firstName = action.payload.firstName;
-      state.lastName = action.payload.lastName;
-    },
-    [userProfile.pending]: (state) => {
-      state.isLoading = true;
-    },
-    [userProfile.rejected]: (state) => {
       state.isLoading = false;
       state.isSuccess = false;
       state.isError = true;

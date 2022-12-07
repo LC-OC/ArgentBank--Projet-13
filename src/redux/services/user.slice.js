@@ -1,20 +1,14 @@
-/*import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { userProfile } from "./user.service";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import userService from "./user.service";
+import { initialState } from "./auth.slice";
 
-const userToken = JSON.parse(localStorage.getItem("token"));
-
-const initialState = {
-  userToken: userToken ? userToken : null,
-  firstName: "",
-  lastName: "",
-};
-
-export const profileUser = createAsyncThunk(
+export const userProfile = createAsyncThunk(
   "auth/profile",
-  async (userProfile, getState, { rejectWithValue }) => {
+  async (rejectWithValue) => {
     try {
-      const token = getState().auth.userToken;
-      return await userProfile(userProfile, token);
+      return await (
+        await userService.getUserProfile()
+      ).data.body;
     } catch (err) {
       return rejectWithValue([], err);
     }
@@ -24,18 +18,24 @@ export const profileUser = createAsyncThunk(
 export const userSlice = createSlice({
   name: "user",
   initialState,
+
   extraReducers: {
-    extraReducers: {
-      [userProfile.fulfilled]: (state, action) => {
-        state.firstName = action.payload.firstName;
-        state.lastName = action.payload.lastName;
-      },
-      [userProfile.rejected]: (state) => {
-        state.firstName = null;
-        state.lastName = null;
-      },
+    [userProfile.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.isSuccess = true;
+      state.email = action.payload.email;
+      state.firstName = action.payload.firstName;
+      state.lastName = action.payload.lastName;
+    },
+    [userProfile.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [userProfile.rejected]: (state) => {
+      state.isLoading = false;
+      state.isSuccess = false;
+      state.isError = true;
     },
   },
 });
 
-export default userSlice.reducer;*/
+export default userSlice.reducer;

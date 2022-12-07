@@ -3,7 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
-import { loginUser, userProfile } from "../redux/services/auth.slice";
+import { loginUser } from "../redux/services/auth.slice";
+import { userProfile } from "../redux/services/user.slice";
 
 export default function SignIn() {
   const navigate = useNavigate();

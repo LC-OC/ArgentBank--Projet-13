@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import ButtonEditName from "./ButtonEditName";
 
 const WelcomeUser = () => {
-  const { firstName, lastName } = useSelector((state) => state.auth);
+  const { firstName, lastName } = useSelector((state) => state.user);
   return (
     <div className="header">
       <h1>
