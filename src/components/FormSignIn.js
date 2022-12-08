@@ -3,8 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
-import { loginUser } from "../redux/services/auth.slice";
-import { userProfile } from "../redux/services/user.slice";
+import { loginUser, resetInfos } from "../redux/auth/auth.slice";
 
 export default function SignIn() {
   const navigate = useNavigate();
@@ -13,8 +12,8 @@ export default function SignIn() {
     email: "",
     password: "",
   });
+  const { userToken, isError, isSuccess } = useSelector((state) => state.auth);
   const { email, password } = formLogin;
-  const { user, isError, isSuccess } = useSelector((state) => state.auth);
 
   useEffect(() => {
     if (isError) {
@@ -23,7 +22,8 @@ export default function SignIn() {
       console.log(":)");
       navigate("/profile");
     }
-  }, [user, isError, isSuccess, navigate, dispatch]);
+    dispatch(resetInfos());
+  }, [userToken, isError, isSuccess, navigate, dispatch]);
 
   const handleOnChangeBis = (e) => {
     setFormLogin((prevState) => ({
@@ -42,7 +42,6 @@ export default function SignIn() {
       console.log("mauvais identifiant");
     } else {
       dispatch(loginUser(userData));
-      dispatch(userProfile(userData));
     }
   };
 

@@ -4,13 +4,13 @@ import authService from "./auth.service";
 export const userToken = JSON.parse(localStorage.getItem("token"));
 export const initialState = {
   userToken: userToken ? userToken : null,
-  email: "",
-  password: "",
-  firstName: "",
-  lastName: "",
-  isLoading: "",
-  isSuccess: "",
-  isError: "",
+  email: null,
+  password: null,
+  firstName: null,
+  lastName: null,
+  isLoading: false,
+  isSuccess: false,
+  isError: false,
 };
 
 export const loginUser = createAsyncThunk(
@@ -18,14 +18,38 @@ export const loginUser = createAsyncThunk(
   async (userToken, { rejectWithValue }) => {
     try {
       return await authService.login(userToken);
-    } catch (err) {}
+    } catch (err) {
+      return rejectWithValue([], err);
+    }
+  }
+);
+
+export const logoutUser = createAsyncThunk(
+  "auth/logout",
+  async ({ rejectWithValue }) => {
+    try {
+      return authService.logout();
+    } catch (err) {
+      console.log("erreur du côté de la déconnexion");
+      return rejectWithValue([], err);
+    }
   }
 );
 
 export const authSlice = createSlice({
   name: "auth",
   initialState,
-
+  reducers: {
+    resetInfos(state) {
+      state.email = null;
+      state.password = null;
+      state.firstName = null;
+      state.lastName = null;
+      state.isLoading = false;
+      state.isSuccess = false;
+      state.userToken = null;
+    },
+  },
   extraReducers: {
     [loginUser.fulfilled]: (state, action) => {
       state.userToken = action.payload;
@@ -44,4 +68,5 @@ export const authSlice = createSlice({
   },
 });
 
+export const { resetInfos } = authSlice.actions;
 export default authSlice.reducer;

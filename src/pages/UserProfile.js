@@ -1,13 +1,20 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { userProfile } from "../redux/services/auth.slice";
+import { useDispatch } from "react-redux";
+import { userProfile } from "../redux/user/user.slice";
 import WelcomeUser from "../components/WelcomeUser";
 import HeaderUser from "../components/HeaderUser";
 import Footer from "../components/Footer";
 import BankAccount from "../components/BankAccount";
 
-const User = () => {
+//dispatch(userProfile(userData));
+
+const UserProfile = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(userProfile());
+  }, [dispatch, navigate]);
   return (
     <div>
       <HeaderUser />
@@ -18,4 +25,4 @@ const User = () => {
   );
 };
 
-export default User;
+export default UserProfile;

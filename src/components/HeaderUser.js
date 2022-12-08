@@ -1,12 +1,20 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import argentBankLogo from "../assets/argentBankLogo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle, faSignOut } from "@fortawesome/free-solid-svg-icons";
+import { logoutUser } from "../redux/auth/auth.slice";
 
 const HeaderUser = () => {
-  const { firstName } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  // logout
+  const handleLogout = () => {
+    dispatch(logoutUser());
+  };
+
+  // get first name in header when user login
+  const { firstName } = useSelector((state) => state.user);
   return (
     <div className="header">
       <nav className="main-nav">
@@ -20,9 +28,9 @@ const HeaderUser = () => {
         </NavLink>
         <NavLink className="main-nav-item" to="/">
           <FontAwesomeIcon icon={faUserCircle} className="logo-user" />
-          {firstName}
+          <span>{firstName}</span>
         </NavLink>
-        <NavLink className="main-nav-item" to="/">
+        <NavLink className="main-nav-item" to={"/"} onClick={handleLogout}>
           <FontAwesomeIcon icon={faSignOut} className="logo-user" />
           Sign Out
         </NavLink>

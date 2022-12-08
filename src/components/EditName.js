@@ -1,6 +1,6 @@
 import React from "react";
 
-const ButtonEditName = () => {
+const EditName = () => {
   return (
     <div>
       <button className="edit-button">Edit Name</button>
@@ -8,4 +8,4 @@ const ButtonEditName = () => {
   );
 };
 
-export default ButtonEditName;
+export default EditName;

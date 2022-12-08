@@ -1,14 +1,14 @@
 import axios from "axios";
-import { API_URL } from "../apiURL";
-import authHeader from "./auth-header";
+import { API_URL } from "../auth/apiURL";
+import authHeader from "../header";
 
-export async function getUserProfile() {
+export const getUserProfile = async () => {
   return await axios({
     method: "POST",
     url: API_URL + "profile",
     headers: authHeader(),
   });
-}
+};
 
 const userService = {
   getUserProfile,

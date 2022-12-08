@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import ButtonEditName from "./ButtonEditName";
+import EditName from "./EditName";
 
 const WelcomeUser = () => {
   const { firstName, lastName } = useSelector((state) => state.user);
@@ -12,7 +12,7 @@ const WelcomeUser = () => {
           {firstName} {lastName}
         </span>
       </h1>
-      <ButtonEditName />
+      <EditName />
     </div>
   );
 };
