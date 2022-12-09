@@ -3,11 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { userProfile } from "../redux/user/user.slice";
 import WelcomeUser from "../components/WelcomeUser";
-import HeaderUser from "../components/HeaderUser";
+import Header from "../components/Header";
 import Footer from "../components/Footer";
 import BankAccount from "../components/BankAccount";
-
-//dispatch(userProfile(userData));
 
 const UserProfile = () => {
   const navigate = useNavigate();
@@ -17,7 +15,7 @@ const UserProfile = () => {
   }, [dispatch, navigate]);
   return (
     <div>
-      <HeaderUser />
+      <Header />
       <WelcomeUser />
       <BankAccount />
       <Footer />

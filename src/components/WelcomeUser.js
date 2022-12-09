@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import EditName from "./EditName";
+import FormEditName from "./FormEditName";
 
 const WelcomeUser = () => {
   const { firstName, lastName } = useSelector((state) => state.user);
@@ -12,7 +12,7 @@ const WelcomeUser = () => {
           {firstName} {lastName}
         </span>
       </h1>
-      <EditName />
+      <FormEditName />
     </div>
   );
 };
