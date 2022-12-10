@@ -2,7 +2,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 5px 20px;
+    padding: 10px 20px;
+    @media #{$desktop} {
+      padding: 5px 20px;
+    }
      a {
       font-weight: bold;
       color: #2c3e50;
@@ -28,7 +31,16 @@
       max-width: 100%;
       width: 200px;
     }
+    .name-user-header {
+      padding-right: 0.5rem;
+    }
   }
   
- 
+ .name-sign-out {
+  display: flex;
+  flex-direction: column;
+  @media #{$desktop} {
+    display: block;
+  }
+ }
   

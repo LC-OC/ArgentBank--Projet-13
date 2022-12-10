@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   userNameEdit,
@@ -58,32 +57,47 @@ const FormEditName = () => {
     <div>
       {updateForm ? (
         <>
-          <button className="edit-button" onClick={showFormOnClick}>
-            Edit Name
-          </button>
+          <div className="welcome-edit-name">
+            <h1 className="welcome-user">
+              Welcome back
+              <span className="name-user">
+                {firstName} {lastName}
+              </span>
+            </h1>
+            <button className="edit-button" onClick={showFormOnClick}>
+              Edit Name
+            </button>{" "}
+          </div>
         </>
       ) : (
         <>
-          <form>
-            <input
-              type="text"
-              name="firstName"
-              id="firstName"
-              defaultValue={firstName}
-              onChange={changeFirstName}
-            />
-            <input
-              type="text"
-              name="firstName"
-              id="firstName"
-              defaultValue={lastName}
-              onChange={changeLastName}
-            />
-            <button type="submit" onClick={editUserNameOnClick}>
-              Save
-            </button>
-            <button onClick={hideFormOnClick}>Cancel</button>
-          </form>
+          <div className="welcome-edit-name">
+            <h1 className="welcome-user">Welcome back</h1>
+            <form className="form-edit-user">
+              <div className="input-container-name">
+                <input
+                  type="text"
+                  name="firstName"
+                  id="firstName"
+                  defaultValue={firstName}
+                  onChange={changeFirstName}
+                />
+                <input
+                  type="text"
+                  name="firstName"
+                  id="firstName"
+                  defaultValue={lastName}
+                  onChange={changeLastName}
+                />
+              </div>
+              <div className="button-container-name">
+                <button type="submit" onClick={editUserNameOnClick}>
+                  Save
+                </button>
+                <button onClick={hideFormOnClick}>Cancel</button>
+              </div>
+            </form>
+          </div>
         </>
       )}
     </div>

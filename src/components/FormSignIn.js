@@ -12,6 +12,7 @@ export default function SignIn() {
     email: "",
     password: "",
   });
+  const [errorMessage, setErrorMessage] = useState(null);
   const { isError, isSuccess } = useSelector((state) => state.auth);
   const { email, password } = formLogin;
   const [rememberUser, setRememberUser] = useState(false);
@@ -22,11 +23,7 @@ export default function SignIn() {
     } else if (isSuccess) {
       console.log(":)");
       navigate("/profile");
-      /*if (!rememberUser) {
-        dispatch(rememberMe());
-        navigate("/profile");
-        console.log("j'me souviens de vous !");
-      }*/ dispatch(resetInfos());
+      dispatch(resetInfos());
     }
   }, [isError, isSuccess, navigate, dispatch, rememberUser]);
 
@@ -44,9 +41,10 @@ export default function SignIn() {
       password,
     };
     if (!userData.email || !userData.password) {
-      console.log("mauvais identifiant");
+      setErrorMessage("Wrong email or password. Try again.");
     } else {
       dispatch(loginUser(userData));
+      setErrorMessage(null);
     }
   };
   const rememberMeCheck = (e) => {
@@ -77,6 +75,7 @@ export default function SignIn() {
               className="password"
               onChange={handleOnChangeBis}
             />
+            {errorMessage && <p>{errorMessage}</p>}
           </div>
           <div className="input-remember">
             <input

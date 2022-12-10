@@ -11,6 +11,9 @@
     box-sizing: border-box;
     text-align: left;
     margin-bottom: 2rem;
+    @media #{$desktop} {
+      flex-direction: row;
+    }
   }
   
   .account-amount {
@@ -26,11 +29,16 @@
   .account-title {
     margin: 0;
     padding: 0;
+    width: 50rem;
     font-size: 1rem;
     font-weight: normal;
+    
   }
   
   .account-content-wrapper {
     width: 100%;
     flex: 1;
+    @media #{$desktop} {
+      flex: 0;
+    }
   }
