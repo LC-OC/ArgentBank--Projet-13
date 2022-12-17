@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
-import { loginUser, resetInfos, rememberMe } from "../redux/auth/auth.slice";
+import { loginUser } from "../redux/auth/auth.slice";
 
 export default function SignIn() {
   const navigate = useNavigate();
@@ -15,47 +15,47 @@ export default function SignIn() {
   const [errorMessage, setErrorMessage] = useState(null);
   const { isError, isSuccess } = useSelector((state) => state.auth);
   const { email, password } = formLogin;
-  const [rememberUser, setRememberUser] = useState(false);
 
   useEffect(() => {
     if (isError) {
-      console.log(":(");
-    } else if (isSuccess) {
-      console.log(":)");
-      navigate("/profile");
-      dispatch(resetInfos());
+      console.log("error");
     }
-  }, [isError, isSuccess, navigate, dispatch, rememberUser]);
+    if (isSuccess) {
+      navigate("/profile");
+    }
+  }, [isError, isSuccess, navigate, dispatch]);
 
-  const handleOnChangeBis = (e) => {
+  const handleOnChange = (e) => {
     setFormLogin((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
   };
 
-  const handleOnSubmitBis = (e) => {
+  const handleOnSubmit = (e) => {
     e.preventDefault();
     const userData = {
       email,
       password,
     };
-    if (!userData.email || !userData.password) {
+    if (
+      userData.email === "" ||
+      userData.password === "" ||
+      !userData.email ||
+      !userData.password
+    ) {
       setErrorMessage("Wrong email or password. Try again.");
     } else {
       dispatch(loginUser(userData));
       setErrorMessage(null);
     }
   };
-  const rememberMeCheck = (e) => {
-    setRememberUser(e.target.rememberUser);
-  };
   return (
     <div className="main">
       <section className="sign-in-content">
         <FontAwesomeIcon className="sign-in-icon" icon={faUserCircle} />
         <h1>Sign In</h1>
-        <form onSubmit={handleOnSubmitBis}>
+        <form onSubmit={handleOnSubmit}>
           <div className="input-wrapper">
             <label>Username</label>
             <input
@@ -63,7 +63,7 @@ export default function SignIn() {
               name="email"
               value={email}
               className="username"
-              onChange={handleOnChangeBis}
+              onChange={handleOnChange}
             />
           </div>
           <div className="input-wrapper">
@@ -73,7 +73,7 @@ export default function SignIn() {
               name="password"
               value={password}
               className="password"
-              onChange={handleOnChangeBis}
+              onChange={handleOnChange}
             />
             {errorMessage && <p>{errorMessage}</p>}
           </div>
@@ -81,7 +81,7 @@ export default function SignIn() {
             <input
               type="checkbox"
               className="remember-me"
-              onChange={rememberMeCheck}
+              //onChange={rememberMeCheck}
             />
             <label>Remember me</label>
           </div>

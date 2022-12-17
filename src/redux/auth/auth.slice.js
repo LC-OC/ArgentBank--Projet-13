@@ -1,9 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import authService from "./auth.service";
 
-export const userToken = JSON.parse(localStorage.getItem("token"));
+export const userToken = localStorage.getItem("token")
+  ? localStorage.getItem("token")
+  : null;
 export const initialState = {
-  userToken: userToken ? userToken : null,
+  userToken,
   email: null,
   password: null,
   isLoggedIn: false,
@@ -32,21 +34,6 @@ export const logoutUser = createAsyncThunk("auth/logout", async () => {
 export const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {
-    rememberMe(state, action) {
-      state.rememberUser = true;
-      state.userToken = action.payload;
-    },
-    resetInfos(state) {
-      state.email = null;
-      state.password = null;
-      state.firstName = null;
-      state.lastName = null;
-      state.isLoading = false;
-      state.isSuccess = false;
-      state.userToken = null;
-    },
-  },
   extraReducers: {
     [loginUser.fulfilled]: (state, action) => {
       state.userToken = action.payload;
@@ -62,10 +49,15 @@ export const authSlice = createSlice({
       state.isError = true;
     },
     [logoutUser.fulfilled]: (state) => {
-      state.isLoggedIn = false;
+      localStorage.removeItem("token");
+      localStorage.clear();
+      state.userToken = null;
+      state.isError = false;
+      state.isSuccess = false;
+      state.isLoading = false;
+      state.rememberUser = false;
     },
   },
 });
 
-export const { resetInfos, rememberMe } = authSlice.actions;
 export default authSlice.reducer;

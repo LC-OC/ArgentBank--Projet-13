@@ -47,7 +47,7 @@ const FormEditName = () => {
 
   useEffect(() => {
     if (isError) {
-      console.log("oh non :(");
+      console.log(isError);
     }
     if (isSuccess) {
       dispatch(userProfile());

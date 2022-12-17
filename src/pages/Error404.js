@@ -1,17 +1,24 @@
 import React from "react";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import { Link } from "react-router-dom";
 
 const Error404 = () => {
   return (
     <div>
       <Header />
       <div className="main_error">
-        <h1>Oups cette page n'existe pas !</h1>
-        <img
-          src="https://media3.giphy.com/media/WRuBiZKB6xgsS9DrFA/200w.gif?cid=6c09b952gdxquzrlosnks3zm94k5xo7imypaksfk6057rap4&rid=200w.gif&ct=g"
-          alt=""
-        />
+        <h1>Are you lost ? This page doesn't exist !</h1>
+        <p>
+          Visit our{" "}
+          <Link className="link-error" to="/">
+            home page
+          </Link>{" "}
+          or{" "}
+          <Link className="link-error" to="/dashboard/12">
+            sign in
+          </Link>{" "}
+        </p>
       </div>
       <Footer />
     </div>

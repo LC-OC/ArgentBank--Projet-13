@@ -13,6 +13,7 @@ const HeaderUser = () => {
   const handleLogout = () => {
     dispatch(logoutUser());
   };
+
   return (
     <div className="header">
       <nav className="main-nav">
