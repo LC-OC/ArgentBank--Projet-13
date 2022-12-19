@@ -15,7 +15,7 @@ const Error404 = () => {
             home page
           </Link>{" "}
           or{" "}
-          <Link className="link-error" to="/dashboard/12">
+          <Link className="link-error" to="/login">
             sign in
           </Link>{" "}
         </p>
